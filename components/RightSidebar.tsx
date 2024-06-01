@@ -1,8 +1,10 @@
-import React from 'react'
+'use client'
 
 const RightSidebar = () => {
   return (
-    <div>RightSidebar</div>
+    <section className="right_sidebar text-white-1">
+      right
+    </section>
   )
 }
 
