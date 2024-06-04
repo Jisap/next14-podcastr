@@ -24,6 +24,7 @@ import GeneratePodcast from "@/components/GeneratePodcast"
 import GenerateThumbnail from "@/components/GenerateThumbnail"
 import { Loader } from "lucide-react"
 import { Id } from "@/convex/_generated/dataModel"
+import { VoiceType } from "@/types"
 
 const voiceCategories = ['alloy', 'shimmer', 'nova', 'echo', 'fable', 'onyx'];
 
@@ -34,7 +35,7 @@ const formSchema = z.object({
 
 const CreatePodcast = () => {
 
-  const [voiceType, setVoiceType] = useState<string | null>(null);
+  const [voiceType, setVoiceType] = useState<VoiceType | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [imagePrompt, setImagePrompt] = useState('');
@@ -99,13 +100,17 @@ const CreatePodcast = () => {
                 Select AI Voice
               </Label>
 
-              <Select onValueChange={(value) => setVoiceType(value)}>
+              <Select onValueChange={(value) => setVoiceType(value as VoiceType)}>
                 <SelectTrigger className={cn('text-16 w-full border-none bg-black-1 text-gray-1 focus-visible:ring-offset-orange-1')}>
                   <SelectValue placeholder="Select AI Voice" className="placeholder:text-gray-1 " />
                 </SelectTrigger>
                 <SelectContent className="text-16 border-none bg-black-1 font-bold text-white-1 focus:ring-orange-1">
                   {voiceCategories.map((category) => (
-                    <SelectItem key={category} value={category} className="capitalize focus:bg-orange-1">
+                    <SelectItem 
+                      key={category} 
+                      value={category} 
+                      className="capitalize focus:bg-orange-1"
+                    >
                       {category}
                     </SelectItem>
                   ))}
@@ -152,7 +157,10 @@ const CreatePodcast = () => {
             <GenerateThumbnail />
 
             <div className="mt-10 w-full">
-              <Button type="submit" className="text-16 w-full bg-orange-1 py-4 font-extrabold text-white-1 transition-all duration-500 hover:bg-black-1">
+              <Button 
+                type="submit" 
+                className="text-16 w-full bg-orange-1 py-4 font-extrabold text-white-1 transition-all duration-500 hover:bg-black-1"
+              >
                 {isSubmitting ? (
                   <>
                     Submitting
