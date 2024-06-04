@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
 
-// import { Dispatch, SetStateAction } from "react";
+import { Dispatch, SetStateAction } from "react";
 
-// import { Id } from "@/convex/_generated/dataModel";
+import { Id } from "@/convex/_generated/dataModel";
 
 // export interface EmptyStateProps {
 //   title: string;
@@ -50,23 +50,23 @@
 //   listeners: number;
 // }
 
-// export type VoiceType =
-//   | "alloy"
-//   | "echo"
-//   | "fable"
-//   | "onyx"
-//   | "nova"
-//   | "shimmer";
+export type VoiceType =
+  | "alloy"
+  | "echo"
+  | "fable"
+  | "onyx"
+  | "nova"
+  | "shimmer";
 
-// export interface GeneratePodcastProps {
-//   voiceType: VoiceType;
-//   setAudio: Dispatch<SetStateAction<string>>;
-//   audio: string;
-//   setAudioStorageId: Dispatch<SetStateAction<Id<"_storage"> | null>>;
-//   voicePrompt: string;
-//   setVoicePrompt: Dispatch<SetStateAction<string>>;
-//   setAudioDuration: Dispatch<SetStateAction<number>>;
-// }
+export interface GeneratePodcastProps {
+  voiceType: VoiceType;
+  setAudio: Dispatch<SetStateAction<string>>;
+  audio: string;
+  setAudioStorageId: Dispatch<SetStateAction<Id<"_storage"> | null>>;
+  voicePrompt: string;
+  setVoicePrompt: Dispatch<SetStateAction<string>>;
+  setAudioDuration: Dispatch<SetStateAction<number>>;
+}
 
 // export interface GenerateThumbnailProps {
 //   setImage: Dispatch<SetStateAction<string>>;
