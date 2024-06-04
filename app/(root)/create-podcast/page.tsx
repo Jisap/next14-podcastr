@@ -107,12 +107,6 @@ const CreatePodcast = () => {
               </Select>
             </div>
 
-            <div className="flex flex-col pt-10">
-              <GeneratePodcast />
-
-              <GenerateThumbnail />
-            </div>
-
             <FormField
               control={form.control}
               name="podcastDescription"
@@ -129,6 +123,12 @@ const CreatePodcast = () => {
                 </FormItem>
               )}
             />         
+          </div>
+
+          <div className="flex flex-col pt-10">
+            <GeneratePodcast />
+
+            <GenerateThumbnail />
           </div>
 
         </form>
