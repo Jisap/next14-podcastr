@@ -1,16 +1,17 @@
 
 
-import React, { useState } from 'react'
+import React, { useRef, useState } from 'react'
 import { GeneratePodcastProps } from '@/types'
 import { Label } from './ui/label'
 import { Textarea } from './ui/textarea'
 import { Button } from './ui/button'
 import { Loader } from 'lucide-react'
-import { useToast } from './ui/use-toast'
+import { toast, useToast } from './ui/use-toast'
 import { useAction, useMutation } from 'convex/react'
 import { api } from '@/convex/_generated/api'
 import { v4 as uuidv4 } from 'uuid';
 import { useUploadFiles } from '@xixixao/uploadstuff/react';
+import { Input } from './ui/input'
 
 const useGeneratePodcast = ({
   setAudio, 
@@ -20,6 +21,7 @@ const useGeneratePodcast = ({
 }: GeneratePodcastProps) => {
 
   const [isGenerating, setIsGenerating] = useState(false);
+  
   const { toast } = useToast();
 
   const getPodcastAudio = useAction(api.openai.generateAudioAction)
@@ -70,20 +72,18 @@ const useGeneratePodcast = ({
       })
       setIsGenerating(false);
     }
-
   }
-
-
 
   return {
     isGenerating,
-    generatePodcast
+    generatePodcast,
   }
 }
 
 
-
 const GeneratePodcast = ( props: GeneratePodcastProps) => {
+
+  const [isUploading, setIsUploading] = useState(false)
 
   const { isGenerating, generatePodcast } = useGeneratePodcast(props);
 
@@ -101,7 +101,7 @@ const GeneratePodcast = ( props: GeneratePodcastProps) => {
           onChange={(e) => props.setVoicePrompt(e.target.value)}
         />
       </div>
-      <div className="mt-5 w-full max-w-[200px]">
+      <div className="mt-5 w-full max-w-[200px] flex gap-x-3">
         <Button 
           type="submit" 
           className="text-16 bg-orange-1 py-4 font-bold text-white-1" 

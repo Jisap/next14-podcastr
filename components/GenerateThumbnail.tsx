@@ -68,7 +68,7 @@ const GenerateThumbnail = ({
     }
   }
 
-  const uploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {       // Esta función sube la imagen particular del usuario a convex
+  const uploadImage = async (e: React.ChangeEvent<HTMLInputElement>) => {       // Esta función sube el podcast particular del usuario a convex
     e.preventDefault();
 
     try {
