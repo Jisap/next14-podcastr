@@ -110,7 +110,7 @@ const GenerateThumbnail = ({
         </Button>
       </div>
 
-      {isAiThumbnail ? (
+      {isAiThumbnail ? (                                              // Si se pulso generar una imagen con openai se muestra textArea + button
         <div className="flex flex-col gap-5">
           
           <div className="mt-5 flex flex-col gap-2.5">
@@ -144,11 +144,11 @@ const GenerateThumbnail = ({
           </div>
         </div>
       ) : (
-          <div 
+          <div                                                        // Si se pulso subir una imagen particular
             className="image_div" 
             onClick={() => imageRef?.current?.click()}
           >
-            <Input
+            <Input                                                    // se muestra una zona para subir imagenes
               type="file"
               className="hidden"
               ref={imageRef}
@@ -170,7 +170,7 @@ const GenerateThumbnail = ({
             </div>
           </div>
       )}
-      {image && (
+      {image && (                                                   // Al final se muestra la imagen generada o subida
         <div className="flex-center w-full">
           <Image
             src={image}
