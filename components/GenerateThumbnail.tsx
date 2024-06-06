@@ -87,8 +87,8 @@ const GenerateThumbnail = ({
 
   return (
     <>
-      <div className="generate_thumbnail">
-        <Button                                           // Boton para generar una imagen con openai
+      <div className="generate_thumbnail ">
+        <Button                                                                 // Boton para generar una imagen con openai
           type="button"
           variant="plain"
           onClick={() => setIsAiThumbnail(true)}

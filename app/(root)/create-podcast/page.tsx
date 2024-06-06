@@ -29,6 +29,7 @@ import { toast } from "@/components/ui/use-toast"
 import { useMutation } from "convex/react"
 import { api } from "@/convex/_generated/api"
 import { useRouter } from "next/navigation"
+import GeneratePodcastUploaded from "@/components/GeneratePodacastUploaded"
 
 const voiceCategories = ['alloy', 'shimmer', 'nova', 'echo', 'fable', 'onyx'];
 
@@ -43,6 +44,7 @@ const CreatePodcast = () => {
 
   const [voiceType, setVoiceType] = useState<VoiceType | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isAiPodcast, setIsAiPodcast] = useState(false);
 
   const [imagePrompt, setImagePrompt] = useState('');
   const [imageStorageId, setImageStorageId] = useState<Id<"_storage"> | null>(null)
@@ -183,16 +185,58 @@ const CreatePodcast = () => {
             />         
           </div>
 
-          <div className="flex flex-col pt-10">
-            <GeneratePodcast 
-              setAudioStorageId={setAudioStorageId}
-              setAudio={setAudioUrl}
-              voiceType={voiceType!}
-              audio={audioUrl}
-              voicePrompt={voicePrompt}
-              setVoicePrompt={setVoicePrompt}
-              setAudioDuration={setAudioDuration}
-            />
+          <div className="flex flex-col pt-2">
+            <div className="generate_podcast">
+                <Button                                           // Boton para generar una imagen con openai
+                  type="button"
+                  variant="plain"
+                  onClick={() => setIsAiPodcast(true)}
+                  className={cn('', {
+                    'bg-black-6': isAiPodcast
+                    })}
+                    >
+                  Use AI to generate podcast
+                </Button>
+                <Button                                           // Boton para subir una imagen particular
+                  type="button"
+                  variant="plain"
+                  onClick={() => setIsAiPodcast(false)}
+                  className={cn('', {
+                    'bg-black-6': !isAiPodcast
+                    })}
+                    >
+                  Upload custom podcast
+                </Button>
+            </div>
+
+            {isAiPodcast ? (
+              
+                <div className="generate_thumbnail">
+                  <GeneratePodcast 
+                    setAudioStorageId={setAudioStorageId}
+                    setAudio={setAudioUrl}
+                    voiceType={voiceType!}
+                    audio={audioUrl}
+                    voicePrompt={voicePrompt}
+                    setVoicePrompt={setVoicePrompt}
+                    setAudioDuration={setAudioDuration}
+                  />
+                  
+                </div>
+
+            ) : (
+
+              <GeneratePodcastUploaded 
+                setAudioStorageId={setAudioStorageId}
+                setAudio={setAudioUrl}
+                voiceType={voiceType!}
+                audio={audioUrl}
+                voicePrompt={voicePrompt}
+                setVoicePrompt={setVoicePrompt}
+                setAudioDuration={setAudioDuration}
+              />
+            )}
+
 
             <GenerateThumbnail 
               setImage={setImageUrl}

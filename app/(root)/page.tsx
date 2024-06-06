@@ -8,7 +8,7 @@ import { api } from "../../convex/_generated/api";
 
 const Home = () => {
 
-  // const trendingPodcasts = useQuery(api.podcasts.getTrendingPodcasts);
+  // const trendingPodcasts = useQuery(api.podcasts.getTrendingPodcasts); // Cambiar por podcastData
 
   // if (!trendingPodcasts) return <LoaderSpinner />
 
