@@ -210,8 +210,7 @@ const CreatePodcast = () => {
             </div>
 
             {isAiPodcast ? (
-              
-                <div className="generate_thumbnail">
+               
                   <GeneratePodcast 
                     setAudioStorageId={setAudioStorageId}
                     setAudio={setAudioUrl}
@@ -222,19 +221,20 @@ const CreatePodcast = () => {
                     setAudioDuration={setAudioDuration}
                   />
                   
-                </div>
+                
 
             ) : (
 
-              <GeneratePodcastUploaded 
-                setAudioStorageId={setAudioStorageId}
-                setAudio={setAudioUrl}
-                voiceType={voiceType!}
-                audio={audioUrl}
-                voicePrompt={voicePrompt}
-                setVoicePrompt={setVoicePrompt}
-                setAudioDuration={setAudioDuration}
-              />
+                <GeneratePodcastUploaded 
+                  setAudioStorageId={setAudioStorageId}
+                  setAudio={setAudioUrl}
+                  voiceType={voiceType!}
+                  audio={audioUrl}
+                  voicePrompt={voicePrompt}
+                  setVoicePrompt={setVoicePrompt}
+                  setAudioDuration={setAudioDuration}
+                />
+            
             )}
 
 

@@ -90,7 +90,7 @@ const GeneratePodcast = ( props: GeneratePodcastProps) => {
   return (
     <div>
       <div className="flex flex-col gap-2.5">
-        <Label className="text-16 font-bold text-white-1">
+        <Label className="text-16 font-bold text-white-1 mt-6">
           AI Prompt to generate Podcast
         </Label>
         <Textarea 
