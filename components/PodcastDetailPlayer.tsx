@@ -24,7 +24,7 @@ const PodcastDetailPlayer = ({
   authorImageUrl,
   authorId,
 }: PodcastDetailPlayerProps) => {
-  
+
   const router = useRouter();
   const { setAudio } = useAudio();
   const { toast } = useToast();
