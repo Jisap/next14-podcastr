@@ -113,12 +113,12 @@ export interface GenerateThumbnailProps {
 //   setAudio: React.Dispatch<React.SetStateAction<AudioProps | undefined>>;
 // }
 
-// export interface PodcastCardProps {
-//   imgUrl: string;
-//   title: string;
-//   description: string;
-//   podcastId: Id<"podcasts">;
-// }
+export interface PodcastCardProps {
+  imgUrl: string;
+  title: string;
+  description: string;
+  podcastId: Id<"podcasts">;
+}
 
 // export interface CarouselProps {
 //   fansLikeDetail: TopPodcastersProps[];

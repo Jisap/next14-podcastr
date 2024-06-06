@@ -19,13 +19,13 @@ const Home = () => {
         <h1 className='text-20 font-bold text-white-1'>Trending Podcast</h1>
         
         <div className="podcast_grid">
-            {podcastData.map(({ id, title, description, imgURL }) => (
+          {trendingPodcasts.map(({ _id, podcastTitle, podcastDescription, imageUrl }) => (
               <PodcastCard
-                key={id}
-                imgUrl={imgURL as string}
-                title={title}
-                description={description}
-                podcastId={id}
+                key={_id}
+                imgUrl={imageUrl as string}
+                title={podcastTitle}
+                description={podcastDescription}
+                podcastId={_id}
               />
             ))}
           </div>
