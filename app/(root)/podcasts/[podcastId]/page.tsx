@@ -20,6 +20,10 @@ const PodcastDetails = ({ params: { podcastId } }: { params: { podcastId: Id<'po
 
   const isOwner = user?.id === podcast?.authorId;
 
+  if (!podcast) {
+    return <div>Loading...</div>; // o algún otro indicador de carga
+  }
+
   return (
     <section className="flex w-full flex-col">
       <header className="mt-9 flex items-center justify-between">
@@ -36,11 +40,14 @@ const PodcastDetails = ({ params: { podcastId } }: { params: { podcastId: Id<'po
           <h2 className="text-16 font-bold text-white-1">{podcast?.views}</h2>
         </figure>
 
-        <PodcastDetailPlayer
-          isOwner={isOwner}
-          podcastId={podcast?._id}
-          {...podcast}
-        />
+         
+          <PodcastDetailPlayer
+            isOwner={isOwner}
+            podcastId={podcast._id}
+            {...podcast}
+          />
+        
+        
       </header>
         
       <p className="text-white-2 text-16 pb-8 pt-[45px] font-medium max-md:text-center">{podcast?.podcastDescription}</p>
