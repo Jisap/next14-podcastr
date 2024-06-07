@@ -30,7 +30,7 @@ const PodcastDetailPlayer = ({
   const { toast } = useToast();
   const [isDeleting, setIsDeleting] = useState(false);
   const deletePodcast = useMutation(api.podcasts.deletePodcast);
-console.log(audioUrl)
+
   const handleDelete = async () => {
     try {
       await deletePodcast({ podcastId, imageStorageId, audioStorageId });
