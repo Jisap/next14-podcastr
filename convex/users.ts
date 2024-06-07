@@ -87,27 +87,28 @@ export const getUserById = query({
   },
 });
 
-// this query is used to get the top user by podcast count. first the podcast is sorted by views and then the user is sorted by total podcasts, so the user with the most podcasts will be at the top.
+// función de consulta que obtiene a los usuarios ordenados por el número total de podcasts que han creado, 
+// y para cada usuario, sus podcasts se ordenan por la cantidad de vistas
 export const getTopUserByPodcastCount = query({
   args: {},
   handler: async (ctx, args) => {
-    const user = await ctx.db.query("users").collect();
+    const user = await ctx.db.query("users").collect();                     // Consulta para obtener todos los usuarios:
 
-    const userData = await Promise.all(
-      user.map(async (u) => {
-        const podcasts = await ctx.db
-          .query("podcasts")
-          .filter((q) => q.eq(q.field("authorId"), u.clerkId))
+    const userData = await Promise.all(                                     // Obtenemos los podcasts de cada usuario y ordenarlos por vistas:
+      user.map(async (u) => {                                               // 1º se crea un array de promesas donde para cada usuario u
+        const podcasts = await ctx.db                                       // Se consulta la bd de convex
+          .query("podcasts")                                                // en la tabla "podcasts"
+          .filter((q) => q.eq(q.field("authorId"), u.clerkId))              // para obtener los podcasts cuyo authorId coincide con u.clerkId.
           .collect();
 
-        const sortedPodcasts = podcasts.sort((a, b) => b.views - a.views);
+        const sortedPodcasts = podcasts.sort((a, b) => b.views - a.views);  // Se ordenan estos podcasts por el número de vistas en orden descendente (b.views - a.views
 
-        return {
-          ...u,
-          totalPodcasts: podcasts.length,
-          podcast: sortedPodcasts.map((p) => ({
-            podcastTitle: p.podcastTitle,
-            podcastId: p._id,
+        return {                                                            // 2º Se retorna un objeto que incluye 
+          ...u,                                                             // los datos del usuario original 
+          totalPodcasts: podcasts.length,                                   // el total de podcasts
+          podcast: sortedPodcasts.map((p) => ({                             // y una lista de sus podcasts ordenados      
+            podcastTitle: p.podcastTitle,                                   // con el título 
+            podcastId: p._id,                                               // y el ID de cada podcast.
           })),
         };
       })
