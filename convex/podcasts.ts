@@ -112,7 +112,7 @@ export const getTrendingPodcasts = query({
 });
 
 // this mutation will delete the podcast.
-export const deletePodcast = mutation({
+export const deletePodcast = mutation({                           
   args: {
     podcastId: v.id("podcasts"),
     imageStorageId: v.id("_storage"),
@@ -128,5 +128,44 @@ export const deletePodcast = mutation({
     await ctx.storage.delete(args.imageStorageId);
     await ctx.storage.delete(args.audioStorageId);
     return await ctx.db.delete(args.podcastId);
+  },
+});
+
+// this query will get the podcast by the search query.
+export const getPodcastBySearch = query({                                           // Consulta a la bd
+  args: {
+    search: v.string(),                                                             // pasandole un término de busqueda "search"
+  },
+  handler: async (ctx, args) => {                                                   // Manejador de la consulta
+
+    if (args.search === "") {                                                       // Si término de busqueda esta vacio se devuelven todos los podcast
+      return await ctx.db.query("podcasts").order("desc").collect();
+    }
+
+    const authorSearch = await ctx.db                                               // Si existe termino de busqueda 1º buscamos por autor
+      .query("podcasts")                                                            // en la tabla "podcasts"
+      .withSearchIndex("search_author", (q) => q.search("author", args.search))     // dentro del índice "search_autor" buscamos un rdo que coincida con el termino de busqueda
+      .take(10);
+
+    if (authorSearch.length > 0) {
+      return authorSearch;
+    }
+
+    const titleSearch = await ctx.db
+      .query("podcasts")
+      .withSearchIndex("search_title", (q) => q.search("podcastTitle", args.search) // Mismo enfoque pero con el índice "search_title"
+      )
+      .take(10);
+
+    if (titleSearch.length > 0) {
+      return titleSearch;
+    }
+
+    return await ctx.db
+      .query("podcasts")
+      .withSearchIndex("search_body", (q) =>
+        q.search("podcastDescription" || "podcastTitle", args.search) // Mismo enfoque pero con el índice "search_body" que se corresponde a podcastDescription o podcastTitle
+      )
+      .take(10);
   },
 });
