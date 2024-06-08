@@ -8,7 +8,7 @@ const AudioContext = createContext<AudioContextType | undefined>(undefined);  //
 
 const AudioProvider = ({ children }: { children: React.ReactNode }) => {      // Proveedor de contexto
 
-  const [audio, setAudio] = useState<AudioProps | undefined>()
+  const [audio, setAudio] = useState<AudioProps | undefined>()  // audio es un objecto {title, audioUrl, author, imageUrl, podcastID}
   const pathname = usePathname();
 
   useEffect(() => {
