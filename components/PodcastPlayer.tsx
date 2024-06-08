@@ -15,7 +15,7 @@ const PodcastPlayer = () => {
   const [duration, setDuration] = useState(0);
   const [isMuted, setIsMuted] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
-  const { audio } = useAudio();
+  const { audio } = useAudio(); // context
 
   const togglePlayPause = () => {                         // Funciones de control
     if (audioRef.current?.paused) {
@@ -61,17 +61,18 @@ const PodcastPlayer = () => {
       }
     };
 
-    const audioElement = audioRef.current;
-    if (audioElement) {
-      audioElement.addEventListener("timeupdate", updateCurrentTime);
+    const audioElement = audioRef.current;                                  // audioElement es el valor ref del audio
+    if (audioElement) {                                                     // Si existe    
+      audioElement.addEventListener("timeupdate", updateCurrentTime);       // se escuchan sus cambios 'timeupdate'
 
-      return () => {
-        audioElement.removeEventListener("timeupdate", updateCurrentTime);
+      return () => {                                                        // y se devuelve     
+        audioElement.removeEventListener("timeupdate", updateCurrentTime);  // el currentTime actualizado vía updateCurrentTime
       };
     }
   }, []);
 
   useEffect(() => {                                         // Reproduce el audio cuando audioUrl cambia y pausa si no hay audioUrl.
+
     const audioElement = audioRef.current;
     if (audio?.audioUrl) {
       if (audioElement) {
@@ -84,7 +85,8 @@ const PodcastPlayer = () => {
       setIsPlaying(true);
     }
   }, [audio]);
-  const handleLoadedMetadata = () => {                      // Establece la duración del audio cuando los metadatos se cargan.
+  
+  const handleLoadedMetadata = () => {                      // Establece la duración del audio cuando los metadatos (ref) se cargan.
     if (audioRef.current) {
       setDuration(audioRef.current.duration);
     }
@@ -100,7 +102,6 @@ const PodcastPlayer = () => {
         hidden: !audio?.audioUrl || audio?.audioUrl === "",
       })}
     >
-      {/* change the color for indicator inside the Progress component in ui folder */}
       <Progress
         value={(currentTime / duration) * 100}
         className="w-full"
