@@ -13,6 +13,7 @@ export default function RootLayout({
   return (
     <div className="relative flex flex-col">
       <main className="relative flex bg-black-3">
+        {/* Hasta el tamaño md estará oculta */}
         <LeftSidebar />
         
         <section className="flex min-h-screen flex-1 flex-col px-4 sm:px-14">
@@ -33,6 +34,7 @@ export default function RootLayout({
           </div>
         </section>
 
+        {/* Hasta el tamaño xl estará oculta */}
         <RightSidebar />
       </main>
       <PodcastPlayer />
