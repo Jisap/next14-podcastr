@@ -7,6 +7,7 @@ import ProfileCard from "../../../../components/ProfileCard";
 import PodcastCard from "@/components/PodcastCard";
 import EmptyState from "@/components/EmptyState";
 
+
 const ProfilePage = ({ params }: { params: { profileId: string }}) => { // Se recibe el authorId
 
   const user = useQuery(api.users.getUserById, {
@@ -17,6 +18,10 @@ const ProfilePage = ({ params }: { params: { profileId: string }}) => { // Se re
   });
 
   if (!user || !podcastsData) return <LoaderSpinner />;
+
+  console.log(podcastsData.podcasts)
+
+
 
   return (
     <section className="mt-9 flex flex-col">
